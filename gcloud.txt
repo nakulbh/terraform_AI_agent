@@ -1,0 +1,8 @@
+//  Scale Down the Node Pool to 0 
+gcloud container clusters resize cloudassist --region asia-south2-a --node-pool default-pool --num-nodes 0
+
+//To scale back up
+gcloud container clusters resize cloudassist --region asia-south2-a --node-pool default-pool --num-nodes 1
+
+//Delete the Cluster
+gcloud container clusters delete cloudassist --region asia-south2-a
