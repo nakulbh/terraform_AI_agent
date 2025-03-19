@@ -72,12 +72,14 @@ function getRandomSlug() {
 export const Landing = () => {
   const [language, setLanguage] = useState("");
   const [replId, setReplId] = useState(getRandomSlug());
+  const [awsAccessKey, setAwsAccessKey] = useState("");
+  const [awsSecretKey, setAwsSecretKey] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   return (
     <Container>
-      <Title>Lepl lit</Title>
+      <Title>Cloud Assist</Title>
       <StyledInput
         onChange={(e) => setReplId(e.target.value)}
         type="text"
@@ -89,13 +91,28 @@ export const Landing = () => {
         id="language"
         onChange={(e) => setLanguage(e.target.value)}
       >
-        <option value="Terraform">Terraform</option>
+        <option value="terraform">Terraform</option>
       </StyledSelect>
+      <StyledInput
+        onChange={(e) => setAwsAccessKey(e.target.value)}
+        type="text"
+        placeholder="AWS Access Key"
+        value={awsAccessKey}
+      />
+      <StyledInput
+        onChange={(e) => setAwsSecretKey(e.target.value)}
+        type="password"
+        placeholder="AWS Secret Key"
+        value={awsSecretKey}
+      />
       <StyledButton
         disabled={loading}
         onClick={async () => {
           setLoading(true);
-          await axios.post(`${SERVICE_URL}/project`, { replId, language });
+          await axios.post(`${SERVICE_URL}/project`, {
+            replId,
+            language,
+          });
           setLoading(false);
           navigate(`/coding/?replId=${replId}`);
         }}
